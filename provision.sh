@@ -33,9 +33,14 @@ echo "
         ▀▀▀▀▀     ▀▀   ▀▀▀   ▀▀▀▀▀   
 "
 echo "======================="
-#
-#
-#
+
+apt install -y bind9 bind9-doc bind9utils 
+
+cp /vagrant_config/DNS/named.conf.options /etc/bind/named.conf.options
+cp /vagrant_config/DNS/named.conf.local /etc/bind/named.conf.local
+
+systemctl restart bind9
+
 #
 #
 #

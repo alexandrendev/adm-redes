@@ -1,0 +1,4 @@
+zone "example.local" {
+    type master;
+    file "/etc/bind/db.example.local";
+};
