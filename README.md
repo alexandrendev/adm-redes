@@ -28,6 +28,11 @@ Neste repositório estão os arquivos e scripts de configuração dos serviços 
     ```bash
     vagrant up
     ```
+5. Após isso executar o `vagrant up`, o vagrant executará o [arquivo de provisão](./provision.sh) que contém os scripts de configuração de cada serviço. 
+Ao finalizar as configurações você poderá acessar a máquina virtual pelo terminal utilizando o comando:
+   ```bash
+   vagrant ssh
+   ```
 --------
 ## 🛠️ Serviços Configurados
 
