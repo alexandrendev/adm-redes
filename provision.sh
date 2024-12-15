@@ -41,13 +41,6 @@ cp /vagrant_config/DNS/named.conf.local /etc/bind/named.conf.local
 
 systemctl restart bind9
 
-#
-#
-#
-#
-#
-#
-#
 echo "======================="
 echo "
         ▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄▄▄  ▄▄▄▄▄▄   
@@ -136,3 +129,39 @@ useradd -m -G users "$USER"
 
 # Reiniciar o serviço do Samba
 systemctl restart smbd.service
+
+
+echo "======================="
+echo "                                                 
+                        ██                        
+                        ▀▀                        
+ ██▄████▄   ▄███▄██   ████     ██▄████▄  ▀██  ██▀ 
+ ██▀   ██  ██▀  ▀██     ██     ██▀   ██    ████   
+ ██    ██  ██    ██     ██     ██    ██    ▄██▄   
+ ██    ██  ▀██▄▄███  ▄▄▄██▄▄▄  ██    ██   ▄█▀▀█▄  
+ ▀▀    ▀▀   ▄▀▀▀ ██  ▀▀▀▀▀▀▀▀  ▀▀    ▀▀  ▀▀▀  ▀▀▀ 
+            ▀████▀▀                               
+"
+echo "======================="
+
+apt install -y nginx
+
+#Cria backup e move o arquivo de configuração para o local correto
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bkp
+cp /vagrant_config/NginX/nginx.conf /etc/nginx/nginx.conf
+
+#Altera permissões do arquivo de configuração
+sudo chown root:root /etc/nginx/nginx.conf
+sudo chmod 644 /etc/nginx/nginx.conf
+
+
+if ! [ -d "/var/www/example.com/" ]; then
+    mkdir -p /var/www/example.com/
+    echo "Diretório /var/www/example.com/ criado"
+else
+    echo "Diretório /var/www/example.com/ já existe"
+fi
+
+sudo chown -R www-data:www-data /var/www/example.com/
+sudo chmod -R 755 /var/www/example.com/
+
