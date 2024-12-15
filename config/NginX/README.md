@@ -47,3 +47,65 @@
        systemctl restart nginx.service
        curl http://<ip_do_servidor>
     ```
+
+### O arquivo `nginx.conf`
+
+```nginx
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+	worker_connections 768;
+}
+
+http {
+
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+	ssl_prefer_server_ciphers on;
+
+	access_log /var/log/nginx/access.log;
+	error_log /var/log/nginx/error.log;
+
+	gzip on;
+
+
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+
+	server {
+    	listen       80 default_server;
+    	listen       [::]:80 default_server;
+    	server_name  _;
+    	root         /usr/share/nginx/html;
+	}
+	
+	server {
+		server_name  example.com;
+		root         /var/www/example.com/;
+		access_log   /var/log/nginx/access.log;
+		error_log    /var/log/nginx/error.log;
+	}
+
+}
+
+```
+
+# Explicando algumas diretivas
+
+Aqui o bloco onde realizamos as configurações é o bloco `http`, onde colocamos os blocos `server` com as configurações do servidor.
+
+- `listen       80 default_server;`: Define o servidor para escutar na porta 80 (ipv4)
+- `listen       [::]:80 default_server;`: Define o servidor para escutar na porta 80 (ipv6)
+- `root         /var/www/example.com/;`: Define o diretório raiz onde o servidor irá buscar os arquivos .html
+- `access_log && error_log`: Definem os diretórios onde o servidor registrará arquivos de log.
