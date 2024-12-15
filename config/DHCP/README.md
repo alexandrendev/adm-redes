@@ -39,7 +39,7 @@
 
 A estrutura básica do arquivo `dhcpd.conf` para o funcionamento do serviço é a seguinte:
 
-```conf
+```shell
   # dhcpd.conf
   #
   # Sample configuration file for ISC dhcpd
