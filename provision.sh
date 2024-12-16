@@ -165,3 +165,36 @@ fi
 sudo chown -R www-data:www-data /var/www/example.com/
 sudo chmod -R 755 /var/www/example.com/
 
+echo "======================="
+echo "                                                 
+                        ██                        
+                        ▀▀                        
+ ██▄████▄   ▄███▄██   ████     ██▄████▄  ▀██  ██▀ 
+ ██▀   ██  ██▀  ▀██     ██     ██▀   ██    ████   
+ ██    ██  ██    ██     ██     ██    ██    ▄██▄   
+ ██    ██  ▀██▄▄███  ▄▄▄██▄▄▄  ██    ██   ▄█▀▀█▄  
+ ▀▀    ▀▀   ▄▀▀▀ ██  ▀▀▀▀▀▀▀▀  ▀▀    ▀▀  ▀▀▀  ▀▀▀ 
+            ▀████▀▀                               
+"
+echo "======================="
+
+apt-get install -y nfs-common nfs-kernel-server
+
+#Cria backup e move o arquivo de configuração para o local correto.
+
+mv /etc/default/nfs-common /etc/default/nfs-common.bkp
+cp /vagrant_config/NFS/nfs-common /etc/default/nfs-common
+
+#configuração Ponto de montagem.
+mv /etc/exports /etc/exports.bkp
+cp /vagrant_config/NFS/exports /etc/exports
+
+#Logo apos configurar o exports Utilizar esse comando para exporta o arquivo.
+
+exportfs -r
+
+#Apos criar e compartilhar reinicie o servico
+
+services nfs-common restart
+services nfs-kernel-server restart
+
