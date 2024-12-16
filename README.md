@@ -70,6 +70,12 @@ O **SAMBA** permite o compartilhamento de arquivos e diretórios entre sistemas 
 
 ---
 
+### 💻 **NFS** (Compartilhamento de Recursos)
+O **Network File System (NFS)** é um protocolo que permite o compartilhamento remoto de sistemas de arquivos em uma rede, possibilitando que máquinas cliente acessem arquivos armazenados em um servidor como se fossem locais.
+- [**Documentação Completa**](./config/NFS/README.md)
+
+---
+
 ## 🔗 Links Úteis
 
 - [Vagrant: Documentação Oficial](https://www.vagrantup.com/docs)
