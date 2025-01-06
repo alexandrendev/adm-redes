@@ -81,54 +81,54 @@ fi
 
 chown webmaster -R ~/share
 
-echo "======================="
-echo "
-                       ▄▄▄▄                        ▄▄                 
-                     ▄█▀▀▀▀█                       ██                 
-                     ██▄        ▄█████▄  ████▄██▄  ██▄███▄    ▄█████▄ 
-                      ▀████▄    ▀ ▄▄▄██  ██ ██ ██  ██▀  ▀██   ▀ ▄▄▄██ 
-                          ▀██  ▄██▀▀▀██  ██ ██ ██  ██    ██  ▄██▀▀▀██ 
-                     █▄▄▄▄▄█▀  ██▄▄▄███  ██ ██ ██  ███▄▄██▀  ██▄▄▄███ 
-                      ▀▀▀▀▀     ▀▀▀▀ ▀▀  ▀▀ ▀▀ ▀▀  ▀▀ ▀▀▀     ▀▀▀▀ ▀▀ 
+# echo "======================="
+# echo "
+#                        ▄▄▄▄                        ▄▄                 
+#                      ▄█▀▀▀▀█                       ██                 
+#                      ██▄        ▄█████▄  ████▄██▄  ██▄███▄    ▄█████▄ 
+#                       ▀████▄    ▀ ▄▄▄██  ██ ██ ██  ██▀  ▀██   ▀ ▄▄▄██ 
+#                           ▀██  ▄██▀▀▀██  ██ ██ ██  ██    ██  ▄██▀▀▀██ 
+#                      █▄▄▄▄▄█▀  ██▄▄▄███  ██ ██ ██  ███▄▄██▀  ██▄▄▄███ 
+#                       ▀▀▀▀▀     ▀▀▀▀ ▀▀  ▀▀ ▀▀ ▀▀  ▀▀ ▀▀▀     ▀▀▀▀ ▀▀ 
 
-"
-echo "======================="
+# "
+# echo "======================="
 
-# Instalando pacotes necessários para Samba
-apt-get install -y libcups2 samba-common cups samba
+# # Instalando pacotes necessários para Samba
+# apt-get install -y libcups2 samba-common cups samba
 
-# Backup e configuração do Samba
-mv /etc/samba/smb.conf /etc/samba/smb.conf.bkp
-cp /vagrant_config/SAMBA/smb.conf /etc/samba/smb.conf
+# # Backup e configuração do Samba
+# mv /etc/samba/smb.conf /etc/samba/smb.conf.bkp
+# cp /vagrant_config/SAMBA/smb.conf /etc/samba/smb.conf
 
-# Criar grupo de usuários
-groupadd users
+# # Criar grupo de usuários
+# groupadd users
 
-# Criar diretórios compartilhados do Samba
-for dir in /home/shares/allusers /home/shares/anonymous; do
-    if ! [ -d "$dir" ]; then
-        mkdir -p "$dir"
-        echo "Diretório $dir criado"
-    else
-        echo "Diretório $dir já existe"
-    fi
-done
+# # Criar diretórios compartilhados do Samba
+# for dir in /home/shares/allusers /home/shares/anonymous; do
+#     if ! [ -d "$dir" ]; then
+#         mkdir -p "$dir"
+#         echo "Diretório $dir criado"
+#     else
+#         echo "Diretório $dir já existe"
+#     fi
+# done
 
-# Definir permissões
-chown -R root:users /home/shares/allusers/
-chmod -R 0771 /home/shares/allusers/
+# # Definir permissões
+# chown -R root:users /home/shares/allusers/
+# chmod -R 0771 /home/shares/allusers/
 
-chown -R root:users /home/shares/anonymous/
-chmod -R 0771 /home/shares/anonymous/
+# chown -R root:users /home/shares/anonymous/
+# chmod -R 0771 /home/shares/anonymous/
 
-# Criar usuário no Samba e configurar senha
-USER="client"
-SENHA="teste"
-useradd -m -G users "$USER"
-(echo "$SENHA"; echo "$SENHA") | smbpasswd -a "$USER" -s
+# # Criar usuário no Samba e configurar senha
+# USER="client"
+# SENHA="teste"
+# useradd -m -G users "$USER"
+# (echo "$SENHA"; echo "$SENHA") | smbpasswd -a "$USER" -s
 
-# Reiniciar o serviço do Samba
-systemctl restart smbd.service
+# # Reiniciar o serviço do Samba
+# systemctl restart smbd.service
 
 
 echo "======================="
@@ -167,14 +167,13 @@ sudo chmod -R 755 /var/www/example.com/
 
 echo "======================="
 echo "                                                 
-                        ██                        
-                        ▀▀                        
- ██▄████▄   ▄███▄██   ████     ██▄████▄  ▀██  ██▀ 
- ██▀   ██  ██▀  ▀██     ██     ██▀   ██    ████   
- ██    ██  ██    ██     ██     ██    ██    ▄██▄   
- ██    ██  ▀██▄▄███  ▄▄▄██▄▄▄  ██    ██   ▄█▀▀█▄  
- ▀▀    ▀▀   ▄▀▀▀ ██  ▀▀▀▀▀▀▀▀  ▀▀    ▀▀  ▀▀▀  ▀▀▀ 
-            ▀████▀▀                               
+ ▄▄▄   ▄▄  ▄▄▄▄▄▄▄▄    ▄▄▄▄   
+ ███   ██  ██▀▀▀▀▀▀  ▄█▀▀▀▀█  
+ ██▀█  ██  ██        ██▄      
+ ██ ██ ██  ███████    ▀████▄  
+ ██  █▄██  ██             ▀██ 
+ ██   ███  ██        █▄▄▄▄▄█▀ 
+ ▀▀   ▀▀▀  ▀▀         ▀▀▀▀▀   
 "
 echo "======================="
 
@@ -185,16 +184,21 @@ apt-get install -y nfs-common nfs-kernel-server
 mv /etc/default/nfs-common /etc/default/nfs-common.bkp
 cp /vagrant_config/NFS/nfs-common /etc/default/nfs-common
 
+mkdir -p /home/storage
+sudo chown nobody:nogroup /home/storage
+sudo chmod 755 /home/storage
+
 #configuração Ponto de montagem.
 mv /etc/exports /etc/exports.bkp
 cp /vagrant_config/NFS/exports /etc/exports
 
 #Logo apos configurar o exports Utilizar esse comando para exporta o arquivo.
-
 exportfs -r
 
+ls -l /lib/systemd/system/nfs-common.service
+rm /lib/systemd/system/nfs-common.service
+
+systemctl daemon-reload
 #Apos criar e compartilhar reinicie o servico
-
-services nfs-common restart
-services nfs-kernel-server restart
-
+systemctl restart nfs-kernel-server.service
+systemctl restart nfs-common.service
